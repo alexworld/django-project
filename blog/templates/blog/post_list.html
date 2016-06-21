@@ -1,0 +1,67 @@
+<html>
+    <head>
+        {% include "base_head.html" %}
+    </head>
+    
+    <body>
+        {% include "base_body.html" %}
+
+        <div class="container">
+            <nav>
+                <ul class="pager">
+                    <li><a href="{% url 'post_list_next' target=target page=prev_page %}">Previous</a></li>
+                    <li><a href="{% url 'post_list_next' target=target page=next_page %}">Next</a></li>
+                </ul>
+            </nav>
+
+            {% for post in post_list %}
+                <div class="block">
+                    <div class="item">
+                        <h2 class="blog-post-title">               
+                            <button type="button" class="plus btn btn-default" action="/post_plus/" method="POST" object={{post.pk}} plus="1">
+                                +
+                            </button>
+
+                            {{ post.get_rating }}
+
+                            <button type="button" class="plus btn btn-default" action="/post_plus/" method="POST" object={{post.pk}} plus="0">
+                                -
+                            </button>
+         
+                            <a href="{% url 'post_detail' pk=post.pk %}">
+                                {{ post.name | escape }}
+                            </a>
+                        </h2>
+                    </div>
+
+                    <div class="item">
+                        <div class="blog-post-meta block">
+                            <div class="item">
+                                Author:
+
+                                <a href="{% url 'profile' pk=post.author.pk %}">
+                                    {{ post.author | escape }}
+                                </a>
+                            </div>
+
+                            <div class="item">
+                                Published: {{ post.release_date }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item blog-post-short">
+                        {{ post.text }}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <nav>
+                <ul class="pager">
+                   <li><a href="{% url 'post_list_next' target=target page=prev_page %}">Previous</a></li>
+                    <li><a href="{% url 'post_list_next' target=target page=next_page %}">Next</a></li>
+                </ul>
+            </nav>  
+        </div>
+    </body>
+</html>

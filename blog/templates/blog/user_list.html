@@ -1,0 +1,19 @@
+<html>
+    <head>
+        {% include "base_head.html" %}
+    </head>
+    
+    <body>
+        {% include "base_body.html" %}
+
+        <div class="container block">
+            {% for user in user_list %}
+                <div class="item">
+                    <a href="{% url 'profile' pk=user.pk %}">
+                        {{ user }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

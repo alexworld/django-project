@@ -1,0 +1,20 @@
+<html>
+    <head>
+        {% include "base_head.html" %}
+    </head>
+    
+    <body>
+        {% include "base_body.html" %}
+
+        <div id="commentform" class="container block item">
+            <form id="comment_form" method="POST"> {% csrf_token %}
+                {{comment_form.as_p}}
+
+                <button type="submit" class="edit_comment btn btn-default" action="{% url 'edit_comment' post=post pk=comment%}"
+                method="POST" name="edit_comment">
+                    Edit Comment
+                </button>
+            </form>
+        </div>
+    </body>
+</html>

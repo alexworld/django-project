@@ -1,0 +1,19 @@
+<html>
+    <head>
+        {% include "base_head.html" %}
+    </head>
+    
+    <body>
+        {% include "base_body.html" %}
+
+        <div id="logform" class="container block item">
+            <form id="login_form" method="POST"> {% csrf_token %}
+                {{user_form.as_p}}
+
+                <button type="submit" class="login btn btn-default" action="/login/" method="POST" name="login">
+                    Login
+                </button>
+            </form>
+        </div>
+    </body>
+</html>

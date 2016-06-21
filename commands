@@ -1,0 +1,2 @@
+Start uWSGI: uwsgi --plugin http,python --http :8000 --module coolsite.wsgi
+Clean mess on 80 port: sudo fuser -k 80/tcp

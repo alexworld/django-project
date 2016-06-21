@@ -1,0 +1,75 @@
+<html>
+    <head>
+        {% include "base_head.html" %}
+    </head>
+    
+    <body>
+        {% include "base_body.html" %}
+        
+        <div class="container profile">
+            <h1 class="block">
+                <a href=".">
+                    {{ person.username }}
+                </a>
+            </h1>
+            
+            <div class="block">
+                <div class="item">
+                    First name: {{ person.first_name }}
+                </div>
+
+                <div class="item">
+                    Last name: {{ person.last_name }}
+                </div>
+
+                <div class="item">
+                    Rating: {{ person.get_rating }} 
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            {% for post in posts %}
+                <div class="block">
+                    <div class="item">
+                        <h2 class="blog-post-title">
+                            <button type="button" class="plus btn btn-default" action="/post_plus/" method="POST" object={{post.pk}} plus="1">
+                                +
+                            </button>
+
+                            {{ post.get_rating }}
+
+                            <button type="button" class="plus btn btn-default" action="/post_plus/" method="POST" object={{post.pk}} plus="0">
+                                -
+                            </button>
+         
+                            <a href="{% url 'post_detail' pk=post.pk %}">
+                                {{ post.name | escape }}
+                            </a>
+                        </h2>
+                    </div>
+
+                    <div class="item">
+                        <div class="blog-post-meta block">
+                            <div class="item">
+                                Author:
+
+                                <a href="{% url 'profile' pk=post.author.pk %}">
+                                    {{ post.author | escape }}
+                                </a>
+                            </div>
+
+                            <div class="item">
+                                Published: {{ post.release_date }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item blog-post-short">
+                        {{ post.text }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

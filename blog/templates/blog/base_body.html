@@ -1,0 +1,50 @@
+{% load staticfiles %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"> </script>
+<script src="{% static '.bootstrap/js/bootstrap.min.js' %}"> </script>
+
+<script src="{% static 'js/blog.js' %}"> </script>
+
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav" id="blog-nav">
+            <a class="blog-nav-item" href="/0">
+                Fresh
+            </a>
+
+            <a class="blog-nav-item" href="/1">
+                Best
+            </a>
+
+            <a class="blog-nav-item" href="/2">
+                Legendary
+            </a>
+            
+            <a class="blog-nav-item" href="/persons">
+                User List
+            </a>
+            
+            {% if owner %}
+                <a class="blog-nav-item" href="{% url 'profile' pk=owner.pk %}">
+                    {{ owner }}
+                </a>
+
+                <a id="logout" class="logout blog-nav-item" method="POST" action="/logout/" href="#">
+                    Logout
+                </a>
+
+                <a class="blog-nav-item" href="/create_post/">
+                    Add post
+                </a>
+            {% else %}
+                <a class="blog-nav-item" href="{% url 'login' %}">
+                    Login
+                </a>
+
+                <a class="blog-nav-item", href="{% url 'register' %}">
+                    Register
+                </a>
+            {% endif %}
+        </nav>
+    </div>
+</div>

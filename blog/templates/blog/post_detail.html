@@ -1,0 +1,93 @@
+<html>
+    <head>
+        {% include "base_head.html" %}
+    </head>
+    
+    <body>
+        {% include "base_body.html" %}
+
+        <div class="container">
+            <div class="block">
+                <h2 class="blog-post-title">
+                    <button type="button" class="plus btn btn-default" action="/post_plus/" method="POST" object={{post.pk}} plus="1">
+                        +
+                    </button>
+
+                    {{ post.get_rating }}
+
+                    <button type="button" class="plus btn btn-default" action="/post_plus/" method="POST" object={{post.pk}} plus="0">
+                        -
+                    </button>
+ 
+                    <a href="{% url 'post_detail' pk=post.pk %}">
+                        {{ post.name | escape }}
+                    </a>
+                </h2>
+
+                <a href="{% url 'edit_post' pk=post.pk %}">
+                    Edit Post
+                </a>
+
+                <div class="blog-post-meta">
+                    <div class="block">
+                        <div class="item">
+                            Author:
+                         
+                            <a href="{% url 'profile' pk=post.author.pk %}">
+                                {{ post.author | escape }}
+                            </a>
+                        </div>
+
+                        <div class="item">
+                            published: {{ post.release_date }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blog-post">
+                    {{ post.text | escape | linebreaks | wordwrap:80}}
+                </div>
+            </div>
+            
+            <div class="comments">
+                <h2 class="block">
+                    Comments:
+                </h2>
+
+                <a type="button" href="{% url 'create_comment' post=post.pk %}">
+                    Add comment
+                </a>
+
+                {% for comment in post.comment.all %}
+                    <div class="block">
+                        <div class="comment-meta item">
+                            <button type="button" class="plus btn btn-xs btn-default" action="/comment_plus/" method="POST"
+                            object={{comment.pk}} plus="1">
+                                +
+                            </button>
+
+                            {{ comment.get_rating }}
+
+                            <button type="button" class="plus btn btn-xs btn-default" action="/comment_plus/" method="POST"
+                            object={{comment.pk}} plus="0">
+                                -
+                            </button>
+
+                            <a href="{% url 'profile' pk=comment.author.pk %}">
+                                {{ comment.author | escape }}
+                            </a>
+                        </div>
+
+                        <a href="{% url 'edit_comment' post=post.pk pk=comment.pk %}">
+                            Edit Comment
+                        </a>
+
+                        <div class="item">
+                            {{ comment.text | escape | linebreaks | wordwrap:80 }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>
